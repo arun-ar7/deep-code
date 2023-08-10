@@ -1,0 +1,48 @@
+
+.authContainer{
+    width: 99vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginContainer, .registrationContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: black 2px solid;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.registrationContainer {
+    display: none;
+}
+.loginContainer {
+    /* display: none; */
+}
+
+.authInput{
+    display: block;
+    margin: 8px;   
+    padding: 3px;
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 250px;
+}
+
+.authInput:focus{
+    outline: none;
+}
+
+.authInputButton{
+    color: white;
+    background-color: black;
+}
+
+.displayNone{
+    display: none;
+}
