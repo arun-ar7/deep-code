@@ -21,15 +21,16 @@ app.post("/login", (req, res) => {
 app.post("/register", (req, res) => {
   //hardcoded logics
   if (req.body.email && req.body.password && req.body.confirmPassword) {
-    if (req.body.password === req.body.confirmPassword) {
-      res.status(200).json({
-        email: req.body.email,
-      });
-    } else {
-      res.status(400).json({
-        message: "Password and confirm password must be same",
-      });
-    }
+    if (req.body.email)
+      if (req.body.password === req.body.confirmPassword) {
+        res.status(200).json({
+          email: req.body.email,
+        });
+      } else {
+        res.status(400).json({
+          message: "Password and confirm password must be same",
+        });
+      }
   } else {
     res.status(400).json({
       message: "All fields required",

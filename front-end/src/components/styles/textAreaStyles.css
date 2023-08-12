@@ -1,0 +1,9 @@
+.homeContainer{
+    display: flex;
+
+}
+
+.textAreaForProgramming{
+    width: 60vw;
+    height: 90vh;
+}

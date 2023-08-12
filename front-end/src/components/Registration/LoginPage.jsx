@@ -72,7 +72,7 @@ const LoginPage = () => {
           <input
             className="authInput"
             placeholder="Email Id"
-            type="text"
+            type="email"
             ref={loginEmail}
             name="email"
             id="email"
