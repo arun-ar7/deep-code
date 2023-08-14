@@ -21,7 +21,11 @@ app.post("/login", (req, res) => {
 app.post("/register", (req, res) => {
   //hardcoded logics
   if (req.body.email && req.body.password && req.body.confirmPassword) {
-    if (req.body.email)
+    let regex = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
+    let result = regex.test(req.body.email);
+    if (!result) {
+      res.status(400).json({ message: "Must email's validation" });
+    } else {
       if (req.body.password === req.body.confirmPassword) {
         res.status(200).json({
           email: req.body.email,
@@ -31,11 +35,16 @@ app.post("/register", (req, res) => {
           message: "Password and confirm password must be same",
         });
       }
+    }
   } else {
     res.status(400).json({
       message: "All fields required",
     });
   }
+});
+
+app.post("/run", (req, res) => {
+  console.log(req.body);
 });
 
 app.listen(8080, (err) => {

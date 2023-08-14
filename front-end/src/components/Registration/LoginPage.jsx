@@ -111,11 +111,25 @@ const LoginPage = () => {
         <h3>Register</h3>
         <input
           className="authInput"
+          placeholder="Name"
+          type="text"
+          ref={registerConfirmPassword}
+          id=""
+        />
+        <input
+          className="authInput"
           placeholder="Email Id"
           type="text"
           ref={registerEmail}
           name="email"
           id="email"
+        />
+        <input
+          className="authInput"
+          placeholder="Phone Number"
+          type="password"
+          ref={registerConfirmPassword}
+          id=""
         />
         <input
           className="authInput"

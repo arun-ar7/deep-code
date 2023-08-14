@@ -1,10 +1,12 @@
-.codeEditorHeader{
-    display: flex;
+.codeEditorHeader {
+  display: flex;
+  justify-content: right;
 }
 
-.codeEditorButton{
-    background-color: green;
-    color: white;
-    margin: 5px;
-    padding: 0px 5px;
+.codeEditorButton {
+  background-color: green;
+  color: white;
+  margin: 5px;
+  padding: 0.2rem 1rem;
+  /* border-radius: 0.5rem; */
 }
