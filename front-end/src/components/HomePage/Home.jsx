@@ -5,12 +5,13 @@ import axios from "axios";
 const Home = () => {
   //more implementations to be done
 
-  const [text, setText] = useState("");
-  const [lang, setLang] = useState("C");
+  const [code, setCode] = useState("//Helloworld");
+  const [selectedLanguage, setSelectedLanguage] = useState("java");
+  // const [lang, setLang] = useState("C");
 
   const handleRun = () => {
     axios
-      .post("http://localhost:8080/run", { lang: lang, code: text })
+      .post("http://localhost:8080/run", { lang: selectedLanguage, code: code })
       .then((res) => {
         console.log(res.data);
       })
@@ -18,17 +19,23 @@ const Home = () => {
         console.log(err);
       });
   };
+  const handleLanguageChange = (event) => {
+    setSelectedLanguage(event.target.value);
+  };
   return (
     <div className="homeContainer">
       <div className="home-left">
-        <select onChange={(e) => setLang(e.target.value)}>
-          <option value="C">C</option>
-          <option value="C++">C++</option>
-          <option value="Java">Java</option>
-          <option value="Python">Python</option>
+        <select value={selectedLanguage} onChange={handleLanguageChange}>
+          <option value="java">Java</option>
+          <option value="c_cpp">C</option>
+          <option value="javascript">JavaScript</option>
         </select>
 
-        <TextArea text={text} setText={setText} />
+        <TextArea
+          code={code}
+          setCode={setCode}
+          selectedLanguage={selectedLanguage}
+        />
         <div>
           <div className="codeEditorHeader">
             <div
