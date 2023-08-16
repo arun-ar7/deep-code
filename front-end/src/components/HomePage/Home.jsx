@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TextArea from "../TextArea/TextArea";
 import "../styles/codeEditor.css";
 import axios from "axios";
+import CodeEditor from "../TextArea/NewCodeEditor";
 const Home = () => {
   //more implementations to be done
 
@@ -26,9 +27,13 @@ const Home = () => {
           <option value="C++">C++</option>
           <option value="Java">Java</option>
           <option value="Python">Python</option>
+          <option value="Javascript">Javascript</option>
         </select>
 
-        <TextArea text={text} setText={setText} />
+        {/* <TextArea text={text} setText={setText} /> */}
+        <main className="App-main">
+          <CodeEditor />
+        </main>
         <div>
           <div className="codeEditorHeader">
             <div
