@@ -1,0 +1,27 @@
+.navBarContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 7vh;
+  align-items: center;
+}
+.navCenter {
+  font-size: 1.5em;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+.navCenterRight {
+  color: green;
+}
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+.authButtons {
+  background-color: green;
+  color: white;
+  padding: 5px;
+  margin: 2px;
+  font-size: small;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 8px;
+}

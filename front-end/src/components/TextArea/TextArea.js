@@ -16,7 +16,7 @@ const TextArea = ({ code, setCode, selectedLanguage }) => {
         onChange={handleCodeChange}
         className="textAreaForProgramming"
         value={code}
-        style={{ height: "90vh", width: "50vw" }}
+        style={{ height: "85vh", width: "49vw" }}
         editorProps={{ $blockScrolling: true }}
       />
     </div>

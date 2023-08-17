@@ -4,6 +4,7 @@ import "./App.css";
 import Home from "./components/HomePage/Home";
 import ProtectedRoute from "./components/Routes/ProtectedRoute";
 import { useState } from "react";
+import Header from "./components/Header/Header";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,7 +25,7 @@ function App() {
             path="/"
             element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <Home />
+                <Home isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
               </ProtectedRoute>
             }
           />

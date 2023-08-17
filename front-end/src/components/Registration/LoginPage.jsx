@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import axios from "axios";
 import "../styles/loginStyles.css";
 import { useNavigate } from "react-router-dom";
+import Header from "../Header/Header";
 
 const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
   const [isNewRegistration, setIsNewRegistration] = useState(false);
@@ -64,97 +65,104 @@ const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
   }
 
   return (
-    <div className="authContainer">
-      <div
-        className={`loginContainer ${isNewRegistration ? "" : "displayNone"}`}
-      >
-        <h3>Login Now</h3>
-        <div>
+    <>
+      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      <div className="authContainer">
+        <div
+          className={`loginContainer ${
+            !isNewRegistration ? "" : "displayNone"
+          }`}
+        >
+          <h3>Login Now</h3>
+          <div>
+            <input
+              className="authInput"
+              placeholder="Email Id"
+              type="email"
+              ref={loginEmail}
+              name="email"
+            />
+          </div>
+          <div>
+            <input
+              className="authInput"
+              placeholder="Password"
+              type="password"
+              ref={loginPassword}
+              name="password"
+            />
+          </div>
+          <div>
+            <input
+              className="authInput authInputButton"
+              type="button"
+              onClick={makeLogin}
+              value="Login"
+            />
+          </div>
+          <div>
+            <input
+              className="authInput authInputButton"
+              type="button"
+              value="Create New Account"
+              onClick={toggleDisplay}
+            />
+          </div>
+        </div>
+        <div
+          className={`loginContainer ${
+            !isNewRegistration ? "displayNone" : ""
+          }`}
+        >
+          <h3>Register</h3>
+          <input
+            className="authInput"
+            placeholder="Name"
+            type="text"
+            ref={registerConfirmPassword}
+          />
           <input
             className="authInput"
             placeholder="Email Id"
-            type="email"
-            ref={loginEmail}
+            type="text"
+            ref={registerEmail}
             name="email"
           />
-        </div>
-        <div>
+          <input
+            className="authInput"
+            placeholder="Phone Number"
+            type="password"
+            ref={registerConfirmPassword}
+          />
           <input
             className="authInput"
             placeholder="Password"
             type="password"
-            ref={loginPassword}
+            ref={registerPassword}
             name="password"
           />
-        </div>
-        <div>
           <input
-            className="authInput authInputButton"
-            type="button"
-            onClick={makeLogin}
-            value="Login"
+            className="authInput"
+            placeholder="Confirm Password"
+            type="password"
+            ref={registerConfirmPassword}
           />
-        </div>
-        <div>
           <input
             className="authInput authInputButton"
             type="button"
-            value="Create New Account"
+            onClick={makeRegistration}
+            value="Register"
+          />
+
+          <input
+            className="authInput authInputButton"
+            type="button"
+            value="Already hava account?"
             onClick={toggleDisplay}
           />
         </div>
       </div>
-      <div
-        className={`loginContainer ${isNewRegistration ? "displayNone" : ""}`}
-      >
-        <h3>Register</h3>
-        <input
-          className="authInput"
-          placeholder="Name"
-          type="text"
-          ref={registerConfirmPassword}
-        />
-        <input
-          className="authInput"
-          placeholder="Email Id"
-          type="text"
-          ref={registerEmail}
-          name="email"
-        />
-        <input
-          className="authInput"
-          placeholder="Phone Number"
-          type="password"
-          ref={registerConfirmPassword}
-        />
-        <input
-          className="authInput"
-          placeholder="Password"
-          type="password"
-          ref={registerPassword}
-          name="password"
-        />
-        <input
-          className="authInput"
-          placeholder="Confirm Password"
-          type="password"
-          ref={registerConfirmPassword}
-        />
-        <input
-          className="authInput authInputButton"
-          type="button"
-          onClick={makeRegistration}
-          value="Register"
-        />
-
-        <input
-          className="authInput authInputButton"
-          type="button"
-          value="Already hava account?"
-          onClick={toggleDisplay}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 
