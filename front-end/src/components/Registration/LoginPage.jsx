@@ -3,9 +3,8 @@ import axios from "axios";
 import "../styles/loginStyles.css";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
   const [isNewRegistration, setIsNewRegistration] = useState(false);
-
   //navigate
   const navigate = useNavigate();
 
@@ -34,6 +33,7 @@ const LoginPage = () => {
     axios(config)
       .then((data) => {
         console.log("Success : ", data);
+        setIsLoggedIn(true);
         navigate("/");
       })
       .catch((err) => {
@@ -54,6 +54,7 @@ const LoginPage = () => {
     axios(config)
       .then((data) => {
         console.log("Success : ", data);
+        setIsLoggedIn(true);
         navigate("/");
       })
       .catch((err) => {
@@ -75,7 +76,6 @@ const LoginPage = () => {
             type="email"
             ref={loginEmail}
             name="email"
-            id="email"
           />
         </div>
         <div>
@@ -85,7 +85,6 @@ const LoginPage = () => {
             type="password"
             ref={loginPassword}
             name="password"
-            id=""
           />
         </div>
         <div>
@@ -114,7 +113,6 @@ const LoginPage = () => {
           placeholder="Name"
           type="text"
           ref={registerConfirmPassword}
-          id=""
         />
         <input
           className="authInput"
@@ -122,14 +120,12 @@ const LoginPage = () => {
           type="text"
           ref={registerEmail}
           name="email"
-          id="email"
         />
         <input
           className="authInput"
           placeholder="Phone Number"
           type="password"
           ref={registerConfirmPassword}
-          id=""
         />
         <input
           className="authInput"
@@ -137,14 +133,12 @@ const LoginPage = () => {
           type="password"
           ref={registerPassword}
           name="password"
-          id=""
         />
         <input
           className="authInput"
           placeholder="Confirm Password"
           type="password"
           ref={registerConfirmPassword}
-          id=""
         />
         <input
           className="authInput authInputButton"

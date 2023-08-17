@@ -5,7 +5,9 @@ import axios from "axios";
 const Home = () => {
   //more implementations to be done
 
-  const [code, setCode] = useState("//Classname should be Main for java");
+  const [code, setCode] = useState(
+    "//Classname should be Main for java if given class name is public"
+  );
   const [inputs, setInputs] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("java");
   const [output, setOutput] = useState("");
@@ -20,11 +22,19 @@ const Home = () => {
         language: selectedLanguage,
       })
       .then((res) => {
-        setOutput(res.data);
+        if (res?.data && typeof res.data === "string") {
+          res.data.replaceAll("\\n", "<br>");
+          setOutput(res.data);
+        }
+        // console.log(typeof res.data);
         console.log(res);
       })
       .catch((err) => {
-        setOutput("Error while executing : " + err.response.data.message.cmd);
+        if (selectedLanguage === "java")
+          setOutput("Error while executing : " + err.response.data.message.cmd);
+        else if (selectedLanguage === "javascript")
+          setOutput("Error while executing : " + err.response.data.error);
+        else setOutput("error in execution");
         console.log(err);
       });
   };
@@ -34,6 +44,12 @@ const Home = () => {
     const a = document.createElement("a");
     a.href = url;
     a.download = "Main.java";
+    if (selectedLanguage === "java") a.download = "Main.java";
+    else if (selectedLanguage === "c_cpp") a.download = "Hello.c";
+    else if (selectedLanguage === "javascript") {
+      a.download = "index.js";
+    }
+
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -86,7 +102,10 @@ const Home = () => {
         </div>
         <div>Output</div>
         <hr />
-        <div>{output}</div>
+        {/* <div>{output}</div> */}
+        <div
+          dangerouslySetInnerHTML={{ __html: output.replace(/\n/g, "<br>") }}
+        />
       </div>
     </div>
   );

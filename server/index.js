@@ -8,18 +8,29 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+const tempDB = [
+  {
+    email: "abc@abc.com",
+    password: "abc",
+  },
+];
 
 app.post("/login", (req, res) => {
   //hardcoded logics
-  if (req.body.email == "abc@abc.com" && req.body.password === "pass") {
-    res.status(200).json({
-      email: req.body.email,
-    });
-  } else {
-    res.status(401).json({
-      message: "unauthorized",
-    });
+  for (const credentials of tempDB) {
+    if (
+      req.body.email == credentials.email &&
+      req.body.password === credentials.password
+    ) {
+      res.status(200).json({
+        email: req.body.email,
+      });
+      return;
+    }
   }
+  res.status(401).json({
+    message: "unauthorized",
+  });
 });
 
 app.post("/register", (req, res) => {
@@ -31,6 +42,7 @@ app.post("/register", (req, res) => {
       res.status(400).json({ message: "Must email's validation" });
     } else {
       if (req.body.password === req.body.confirmPassword) {
+        tempDB.push({ email: req.body.email, password: req.body.password });
         res.status(200).json({
           email: req.body.email,
         });
@@ -111,7 +123,28 @@ app.post("/execute", async (req, res) => {
     } else if (language === "javascript") {
       // Execute JavaScript code using Node.js
       // (assuming input is not applicable for JavaScript)
-      result = eval(code);
+      try {
+        // Capture console.log() output
+        let capturedOutput = "";
+        const originalConsoleLog = console.log;
+        console.log = (...args) => {
+          capturedOutput += args.join(" ") + "\n";
+        };
+
+        // Execute the front-end JavaScript code
+        try {
+          eval(code);
+          console.log = originalConsoleLog;
+          console.log("Captured Output:\n", capturedOutput);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+
+        // Restore the original console.log()
+        res.status(200).json(capturedOutput);
+      } catch (error) {
+        res.status(400).json({ error: error.message });
+      }
     } else {
       throw new Error("Unsupported language");
     }
