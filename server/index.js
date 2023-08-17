@@ -1,5 +1,9 @@
 const express = require("express");
 const cors = require("cors");
+const axios = require("axios");
+const fs = require("fs");
+// const fetch = require("node-fetch");
+const { execSync, exec } = require("child_process");
 const app = express();
 
 app.use(cors());
@@ -45,6 +49,80 @@ app.post("/register", (req, res) => {
 
 app.post("/run", (req, res) => {
   console.log(req.body);
+});
+
+app.post("/execute", async (req, res) => {
+  let result;
+  const { code, inputs, language } = req.body;
+  console.log(`code : ${code}, inputs : ${inputs}, language : ${language}`);
+  try {
+    let result = "";
+
+    if (language === "java") {
+      // Compile and execute Java code
+      const userJavaCode = code;
+
+      // Create a temporary Java file
+      const javaFilename = "Main.java";
+      const fs = require("fs");
+      fs.writeFileSync(javaFilename, userJavaCode);
+
+      // Compile and execute the Java program
+      // exec(`javac ${javaFilename} && java Main`, (error, stdout, stderr) => {
+      //   if (error) {
+      //     console.error("Error:", error);
+      //     return;
+      //   }
+
+      //   console.log("Java Output:", stdout);
+      //   console.error("Java Error Output:", stderr);
+
+      //   // Clean up: Delete the temporary Java file
+      //   fs.unlinkSync(javaFilename);
+      // });
+
+      // Provide input to the Java program
+      // const input = "Alice\n"; // Replace with your desired input
+      const process = exec(
+        `javac ${javaFilename} && java Main`,
+        (error, stdout, stderr) => {
+          if (error) {
+            console.error("Error:", error);
+            res.status(400).send({ message: error });
+            return;
+          }
+
+          console.log("Java Output:", stdout);
+          res.status(200).send(stdout);
+          console.error("Java Error Output:", stderr);
+
+          // Clean up: Delete the temporary Java file
+          fs.unlinkSync(javaFilename);
+        }
+      );
+
+      process.stdin.write(inputs);
+      process.stdin.end();
+    } else if (language === "c") {
+      // Compile and execute C code
+      result = execSync(`gcc -o output - && echo "${inputs}" | ./output`, {
+        input: code,
+      }).toString();
+    } else if (language === "javascript") {
+      // Execute JavaScript code using Node.js
+      // (assuming input is not applicable for JavaScript)
+      result = eval(code);
+    } else {
+      throw new Error("Unsupported language");
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/test", (req, res) => {
+  // const axios = require("axios");
+  // User-provided Java code (received from the front-end)
 });
 
 app.listen(8080, (err) => {
