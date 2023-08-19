@@ -8,6 +8,7 @@
   color: white;
   margin: 5px;
   padding: 0.2rem 1rem;
+  cursor: pointer;
   /* border-radius: 0.5rem; */
 }
 .home-right-top {

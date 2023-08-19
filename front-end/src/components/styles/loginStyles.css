@@ -21,9 +21,9 @@
 .registrationContainer {
     display: none;
 }
-.loginContainer {
-    /* display: none; */
-}
+/* .loginContainer { 
+    display: none;
+ } */
 
 .authInput{
     display: block;

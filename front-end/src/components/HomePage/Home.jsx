@@ -12,6 +12,7 @@ const Home = ({ isLoggedIn, setIsLoggedIn }) => {
   const [inputs, setInputs] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("java");
   const [output, setOutput] = useState("");
+  const [theme,setTheme]=useState("ambiance");
 
   // const [lang, setLang] = useState("C");
 
@@ -61,6 +62,11 @@ const Home = ({ isLoggedIn, setIsLoggedIn }) => {
   const handleLanguageChange = (event) => {
     setSelectedLanguage(event.target.value);
   };
+
+
+  const handleThemeChange=(e)=>{
+    setTheme(e.target.value);
+  }
   return (
     <>
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
@@ -73,10 +79,18 @@ const Home = ({ isLoggedIn, setIsLoggedIn }) => {
             <option value="javascript">JavaScript</option>
           </select>
 
+
+          <select value={theme} onChange={handleThemeChange}>
+            <option value="ambiance">Dark</option>
+            <option value="chrome">Light</option>
+            <option value="github">Mid-Light</option>
+          </select>
+
           <TextArea
             code={code}
             setCode={setCode}
             selectedLanguage={selectedLanguage}
+            selectedTheme={theme}
           />
           <div>
             <div className="codeEditorHeader">
@@ -90,7 +104,7 @@ const Home = ({ isLoggedIn, setIsLoggedIn }) => {
                 className="codeEditorHeadRight codeEditorButton"
                 onClick={handleDownload}
               >
-                Save
+                Download
               </div>
             </div>
           </div>
