@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextArea from "../TextArea/TextArea";
 import "../styles/codeEditor.css";
 import axios from "axios";
 import Header from "../Header/Header";
 const Home = ({ isLoggedIn, setIsLoggedIn }) => {
   //more implementations to be done
-
-  const [code, setCode] = useState(
-    "//Classname should be Main for java if given class name is public"
-  );
+  const javaDefault =
+    'class Main{\n\tpublic static void main(String args[]){\n\t\tSystem.out.println("Hello world");\n\t}\n}';
+  const cDefault = `#include<stdio.h>\nint main()\n{\n\tprintf("HelloWorld");\n}`;
+  const javascriptDefault = `console.log("HelloWorld")`;
+  const [code, setCode] = useState(javaDefault);
   const [inputs, setInputs] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("java");
   const [output, setOutput] = useState("");
-  const [theme,setTheme]=useState("ambiance");
+  const [theme, setTheme] = useState("ambiance");
 
   // const [lang, setLang] = useState("C");
 
@@ -36,6 +37,8 @@ const Home = ({ isLoggedIn, setIsLoggedIn }) => {
           setOutput("Error while executing : " + err.response.data.message.cmd);
         else if (selectedLanguage === "javascript")
           setOutput("Error while executing : " + err.response.data.error);
+        else if (selectedLanguage === "c_cpp")
+          setOutput("C compiler will be ready soon");
         else setOutput("error in execution");
         console.log(err);
       });
@@ -60,13 +63,19 @@ const Home = ({ isLoggedIn, setIsLoggedIn }) => {
   };
 
   const handleLanguageChange = (event) => {
+    if (event.target.value == "java") {
+      setCode(javaDefault);
+    } else if (event.target.value == "c_cpp") {
+      setCode(cDefault);
+    } else {
+      setCode(javascriptDefault);
+    }
     setSelectedLanguage(event.target.value);
   };
 
-
-  const handleThemeChange=(e)=>{
+  const handleThemeChange = (e) => {
     setTheme(e.target.value);
-  }
+  };
   return (
     <>
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
@@ -78,7 +87,6 @@ const Home = ({ isLoggedIn, setIsLoggedIn }) => {
             <option value="c_cpp">C</option>
             <option value="javascript">JavaScript</option>
           </select>
-
 
           <select value={theme} onChange={handleThemeChange}>
             <option value="ambiance">Dark</option>

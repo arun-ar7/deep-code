@@ -24,9 +24,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
             Logout
           </div>
         ) : (
-          <div className="authButtons" onClick={navigateToAuthPage}>
-            Login
-          </div>
+          ""
         )}
       </div>
     </div>
