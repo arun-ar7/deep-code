@@ -69,7 +69,8 @@ const TextArea = ({ code, setCode, selectedLanguage, selectedTheme }) => {
         showGutter={true}
         style={{ height: "85vh", width: "49vw" }}
         highlightActiveLine={true}
-        editorProps={{ $blockScrolling: Infinity }}
+        editorProps={{ $blockScrolling: true }}
+        wrapEnabled={true}
         setOptions={{
           enableBasicAutocompletion: true,
           enableLiveAutocompletion: true,

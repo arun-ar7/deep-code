@@ -129,7 +129,7 @@ const Home = ({ isLoggedIn, setIsLoggedIn }) => {
           <div>Output</div>
           <hr />
           {/* <div>{output}</div> */}
-          <div
+          <div className="output"
             dangerouslySetInnerHTML={{ __html: output.replace(/\n/g, "<br>") }}
           />
         </div>
